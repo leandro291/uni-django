@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer
-from profesores.models import Profesor, Curso
+from profesores.models import Profesor, Curso, Asignaciones
 
 class ProfesorSerializer(ModelSerializer):
     class Meta:
@@ -9,4 +9,9 @@ class ProfesorSerializer(ModelSerializer):
 class CursoSerializer(ModelSerializer):
     class Meta:
         model = Curso
+        fields = '__all__'
+
+class AsignacionesSerializer(ModelSerializer):
+    class Meta:
+        model = Asignaciones
         fields = '__all__'
