@@ -10,6 +10,9 @@ class Profesor(models.Model):
         verbose_name = 'Profesor'
         verbose_name_plural = 'Profesores'
 
+    def __str__(self):
+        return self.nombre
+
 class Curso(models.Model):
     nombre = models.CharField(max_length=255)
     creditos = models.IntegerField()
@@ -18,6 +21,9 @@ class Curso(models.Model):
         through='Asignaciones',
         related_name='cursos'
     )
+
+    def __str__(self):
+        return self.nombre
 
     class Meta:
         db_table = 'cursos'
@@ -44,4 +50,6 @@ class Asignaciones(models.Model):
                 name='unique_profesor_curso_periodo_seccion'
             )
         ]
-        
+
+    def __str__(self):
+        return f"{self.profesor.nombre} - {self.curso.nombre} - {self.periodo_academico} - {self.seccion}"
