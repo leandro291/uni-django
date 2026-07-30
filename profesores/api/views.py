@@ -11,14 +11,15 @@ class CursoViewSet(ModelViewSet):
     queryset = Curso.objects.all()
     serializer_class = CursoSerializer
 
-class AsignacionesViewSet(generics.ListCreateAPIView):
+class AsignacionesProfesorListCreate(generics.ListCreateAPIView):
     serializer_class = AsignacionesSerializer
 
     def get_queryset(self):
-        return Asignaciones.objects.filter(profesor_id=self.kwargs['profesor_pk'])
+        return Asignaciones.objects.filter(profesor_id=self.kwargs['profesor_pk']).select_related('profesor', 'curso')
 
-class AsignacionesCursoViewSet(generics.ListCreateAPIView):
+class AsignacionesCursoListCreate(generics.ListCreateAPIView):
     serializer_class = AsignacionesSerializer
 
     def get_queryset(self):
-        return Asignaciones.objects.filter(curso_id=self.kwargs['curso_pk'])
+        return Asignaciones.objects.filter(curso_id=self.kwargs['curso_pk']).select_related('profesor', 'curso')
+    
