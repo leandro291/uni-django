@@ -17,3 +17,8 @@ class AsignacionesViewSet(generics.ListCreateAPIView):
     def get_queryset(self):
         return Asignaciones.objects.filter(profesor_id=self.kwargs['profesor_pk'])
 
+class AsignacionesCursoViewSet(generics.ListCreateAPIView):
+    serializer_class = AsignacionesSerializer
+
+    def get_queryset(self):
+        return Asignaciones.objects.filter(curso_id=self.kwargs['curso_pk'])
