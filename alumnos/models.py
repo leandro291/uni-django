@@ -27,8 +27,17 @@ class Matricula(models.Model):
         INACTIVO = 'inactivo', 'Inactivo'
         PENDIENTE = 'pendiente', 'Pendiente'
 
-    alumno = models.ForeignKey(Alumno, on_delete=models.CASCADE)
-    asignacion = models.ForeignKey(Asignaciones, on_delete=models.CASCADE)
+    alumno = models.ForeignKey(
+        Alumno, 
+        on_delete=models.CASCADE,
+        related_name='matriculas'
+        )
+    
+    asignacion = models.ForeignKey(
+        Asignaciones, 
+        on_delete=models.CASCADE,
+        related_name='matriculas'
+    )
     fecha_matricula = models.DateField(auto_now_add=True)
     estado = models.CharField(
         max_length=10,
