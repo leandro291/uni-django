@@ -4,14 +4,14 @@ from profesores.models import Profesor, Curso, Asignaciones
 class ProfesorSerializer(ModelSerializer):
     class Meta:
         model = Profesor
-        fields = '__all__'
+        fields = ['id', 'nombre', 'especialidad']
 
 class CursoSerializer(ModelSerializer):
     class Meta:
         model = Curso
-        fields = '__all__'
+        fields = ['id', 'nombre', 'creditos']
 
 class AsignacionesSerializer(ModelSerializer):
     class Meta:
         model = Asignaciones
-        fields = '__all__'
+        fields = ['id', 'profesor', 'curso', 'periodo_academico', 'seccion', 'capacidad', 'horas_semanales']
