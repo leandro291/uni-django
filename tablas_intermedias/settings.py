@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 from pathlib import Path
 from dotenv import load_dotenv
+from urllib.parse import parse_qs, urlsplit
 import os
 
 load_dotenv() 
@@ -94,11 +95,21 @@ WSGI_APPLICATION = 'tablas_intermedias.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+def database_from_url(url):
+    parsed = urlsplit(url)
+    options = {key: value[0] for key, value in parse_qs(parsed.query).items()}
+    return {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': parsed.path.lstrip('/'),
+        'USER': parsed.username,
+        'PASSWORD': parsed.password,
+        'HOST': parsed.hostname,
+        'PORT': parsed.port or '5432',
+        'OPTIONS': options,
     }
+
+DATABASES = {
+    'default': database_from_url(os.getenv('DATABASE_URL')),
 }
 
 
