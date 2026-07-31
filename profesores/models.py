@@ -32,8 +32,16 @@ class Curso(models.Model):
 
 class Asignaciones(models.Model):
 
-    profesor = models.ForeignKey(Profesor, on_delete=models.CASCADE)
-    curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
+    profesor = models.ForeignKey(
+        Profesor, 
+        on_delete=models.CASCADE,
+        related_name='asignaciones'
+    )
+    
+    curso = models.ForeignKey(Curso, 
+                              on_delete=models.CASCADE,
+                              related_name='asignaciones'
+                              )
     periodo_academico = models.CharField(max_length=255)
     seccion = models.CharField(max_length=255)
     capacidad = models.IntegerField()
